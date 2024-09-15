@@ -57,5 +57,15 @@ namespace Encapsulation
 			//Console.WriteLine($"X = {this.GetX()}, X = {this.GetY()}");
 			Console.WriteLine($"X = {this.X}, X = {this.Y}");
 		}
+		public double Distance()
+		{
+			return Math.Sqrt(X * X + Y * Y);
+		}
+		static public double Distance(Point a, Point b)
+		{
+			double x_distance = (a.X > b.X) ? a.X - b.X : b.X - a.X;
+			double y_distance = (a.Y > b.Y) ? a.Y - b.Y : b.Y - a.Y;
+			return Math.Sqrt(x_distance * x_distance + y_distance * y_distance);
+		}
 	}
 }
