@@ -1,4 +1,7 @@
-﻿using System;
+﻿//#define RHOMBUS_1
+#define RHOMBUS_2
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -63,13 +66,30 @@ namespace Figures
             Console.WriteLine(delimiter1 + 5);
             Console.WriteLine();
 
-            for (int i = 0; i < 10; i++)
+            Console.Write("Введите размер фигуры: ");
+            int size = Convert.ToInt32(Console.ReadLine());
+
+#if RHOMBUS_1
+            for (int i = 0; i < size; i++)
             {
-                int count = 5;
-                for (int j = 0; j < 10; j++)
+                for (int j = i; j < size; j++) Console.Write(" "); Console.Write("/");
+                for (int j = 0; j < i; j++) Console.Write("  "); Console.Write("\\");
+                Console.WriteLine();
+            }
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j <= i; j++) Console.Write(" "); Console.Write("\\");
+                for (int j = i + 1; j < size; j++) Console.Write("  "); Console.Write("/");
+                Console.WriteLine();
+            } 
+#endif
+            for(int i=0;i<size * 2;i++)
+            {
+                for(int j=0;j<size*2;j++)
                 {
-                    if (j == count) Console.Write('/'); else if (j == count + 1) Console.WriteLine('\\');
-                    else Console.Write(' ');
+                    if (i < size && i == j - size || (i >= size && j == i - size)) Console.Write("\\");
+                    else if (i == size - 1 - j || j - size == size * 2 - 1 - i) Console.Write("/");
+                    else Console.Write(" ");
                 }
                 Console.WriteLine();
             }
@@ -92,7 +112,7 @@ namespace Figures
 
             Console.OutputEncoding = Encoding.Unicode;
             Console.WriteLine("Введите размер доски");
-            int size = Convert.ToInt32(Console.ReadLine());
+            size = Convert.ToInt32(Console.ReadLine());
             for (int i = 0; i < size + 2; i++)
             {
                 Console.Write("‗");
