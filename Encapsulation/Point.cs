@@ -38,7 +38,6 @@ namespace Encapsulation
 
 		public double X { get; set; } //автосвойства для x
 		public double Y { get; set; } //автосвойства для y
-
 		//		Constructor:
 		public Point(double x = 0, double y = 0) //универсальный, и без, и с одним, и с двумя
 		{
@@ -46,9 +45,34 @@ namespace Encapsulation
 			Y = y;
             Console.WriteLine($"Constructor:\t{this.GetHashCode()}");
         }
+		public Point(Point other)
+		{
+			X = other.X;
+			Y = other.Y;
+            Console.WriteLine($"CopyConstructor:\t{GetHashCode()}");
+		}
 		~Point()
 		{
 			Console.WriteLine($"Destructor:\t{this.GetHashCode()}");
+		}
+		//		Operators:
+		public static Point operator+(Point left, Point right)
+		{
+			return new Point(left.X + right.X, left.Y + right.Y);
+		}
+		public static Point operator++(Point obj)
+		{
+			obj.X++;
+			obj.Y++;
+			return obj;
+		}
+		public static bool operator==(Point left, Point right)
+		{
+			return left.X == right.X && left.Y == right.Y;
+		}
+		public static bool operator!=(Point left, Point right)
+		{
+			return !(left == right);
 		}
 
 		//		Methods
@@ -57,9 +81,11 @@ namespace Encapsulation
 			//Console.WriteLine($"X = {this.GetX()}, X = {this.GetY()}");
 			Console.WriteLine($"X = {this.X}, X = {this.Y}");
 		}
-		public double Distance()
+		public double Distance(Point other)
 		{
-			return Math.Sqrt(X * X + Y * Y);
+			double x_distance = (X > other.X) ? X - other.X : X - other.X;
+			double y_distance = (Y > other.Y) ? Y - other.Y : Y - other.Y;
+			return Math.Sqrt(x_distance * x_distance + y_distance * y_distance);
 		}
 		static public double Distance(Point a, Point b)
 		{
