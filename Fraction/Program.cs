@@ -64,6 +64,8 @@ namespace Fraction
 
             Console.WriteLine(A++);
             Console.WriteLine(++B);
+            Console.WriteLine(A--);
+            Console.WriteLine(--B);
 
             Console.WriteLine(delimiter);
 

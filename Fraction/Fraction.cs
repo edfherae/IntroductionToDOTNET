@@ -136,8 +136,11 @@ namespace Fraction
 		public static Fraction operator++(Fraction obj)
 		{
 			obj.Integer += 1;
-			obj.Numerator += 1;
-			obj.Denominator += 1;
+			return obj;
+		}
+		public static Fraction operator--(Fraction obj)
+		{
+			obj.Integer -= 1;
 			return obj;
 		}
 
