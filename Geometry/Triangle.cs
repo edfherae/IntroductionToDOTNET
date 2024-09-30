@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Geometry
 {
-	internal class Triangle : Figure
+	internal class Triangle : Shape, IHaveHeight
 	{
 		public int A { get; set; }
 		public int B { get; set; }
 		public int C { get; set; }
 
-		public Triangle(ConsoleColor color, int a, int b, int c) : base(color)
+		public Triangle(int start_x, int start_y, int line_width, Color color, int a, int b, int c) : base(start_x, start_y, line_width, color)
 		{
 			A = a;
 			B = b;
@@ -23,19 +25,25 @@ namespace Geometry
 		{
 			Console.WriteLine($"TDestructor:\t{GetHashCode()}");
 		}
-
-		public override int Perimeter() { return A + B + C; }
-		public override double Area() { return 0; }
-		public override void Draw()
+		public double GetHeight() => 2 * GetArea() / A ;
+		public override double GetPerimeter() { return A + B + C; }
+		public override double GetArea() { return 0; }
+		public override void Draw(PaintEventArgs e)
 		{
-            for (int i = 0; i < A; i++)
-            {
-                for (int j = 0; j < i + 1; j++)
-                {
-					Console.Write('*');
-                }
-				Console.WriteLine();
-            }
+			Pen pen = new Pen(Color, MIN_LINE_WIDTH);
+			Point[] points = new Point[] 
+			{ 
+				new Point(StartX, StartY),
+				new Point (StartX + A,StartY),
+				new Point(StartX + A, StartY + B)
+			};
+			e.Graphics.DrawPolygon(pen, points);
         }
+		public override void Info(PaintEventArgs e)
+		{
+			Console.WriteLine(this.GetType());
+			Console.WriteLine($"Высота: {GetHeight()}");
+			base.Info(e);
+		}
 	}
 }
